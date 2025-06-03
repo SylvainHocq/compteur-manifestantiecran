@@ -1,48 +1,14 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8" />
-    <title>Compteur participations Tally</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f9f9f9;
-            text-align: center;
-            padding: 40px;
-            color: #333;
+<script>
+    async function updateCounter() {
+        try {
+            const response = await fetch('https://script.google.com/macros/s/AKfycbzGzLXqIaZQZ9f6i0ZTKeI6spFKsEvPXskOtQghF0myOJNIC49cuokpWUtOhB7ohLaF8g/exec');
+            const data = await response.text();
+            document.getElementById('counter').innerText = data;
+        } catch (error) {
+            console.error("Erreur compteur:", error);
+            document.getElementById('counter').innerText = "Erreur";
         }
-        #counter {
-            font-size: 48px;
-            font-weight: bold;
-            color: #2a9d8f;
-        }
-        .label {
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="label">Déjà</div>
-    <div id="counter">...</div>
-    <div class="label">personnes ont participé 🎉</div>
+    }
 
-    <script>
-        const namespace = "manifestantiecran";
-        const key = "soumissions";
-
-        async function updateCounter() {
-            try {
-                const response = await fetch(`https://api.countapi.xyz/get/${namespace}/${key}`);
-                const data = await response.json();
-                document.getElementById('counter').innerText = data.value;
-            } catch (error) {
-                console.error("Erreur compteur:", error);
-                document.getElementById('counter').innerText = "Erreur";
-            }
-        }
-
-        updateCounter();
-    </script>
-</body>
-</html>
+    updateCounter();
+</script>
